@@ -36,7 +36,7 @@ public class EmergencyContact {
         return this.ecAddress;
     }
     public void setecAddress(String ecAddress) {
-        this.pAddress = pAddress;
+        this.ecAddress = ecAddress;
     }
   
     // behaviour-method
