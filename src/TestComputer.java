@@ -20,27 +20,27 @@ public class TestComputer extends JFrame implements ActionListener {
     
     public void toSearchValid() {
     removeAll();
-    //add(panel1); panel contains all components for search valid
+    //add(panel2); panel contains all components for search valid
     }
     
     public void toSearchInvalid() {
     removeAll();
-    //add(panel1); panel contains all components for search invalid
+    //add(panel3); panel contains all components for search invalid
     }
     
     public void toCreateRecord() {
     removeAll();
-    //add(panel1); panel contains all components for create record
+    //add(panel4); panel contains all components for create record
     }
     
     public void toViewRecord() {
     removeAll();
-    //add(panel1); panel contains all components for view record
+    //add(panel5); panel contains all components for view record
     }
     
     public void toEditRecord() {
     removeAll();
-    //add(panel1); panel contains all components for edit record
+    //add(panel6); panel contains all components for edit record
     }
 
     @Override
