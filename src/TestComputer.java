@@ -12,6 +12,15 @@ public class TestComputer extends JFrame implements ActionListener {
     GridBagConstraints gbcHome = new GridBagConstraints();
     Color ustYellow = new Color(254,192,15);
     
+    JPanel Homepage = new JPanel();
+    //homepage.setBackground?
+    
+    JPanel SearchValid = new JPanel();
+    JPanel SearchInvalid = new JPanel();
+    JPanel CreateRecord = new JPanel();
+    JPanel ViewRecord = new JPanel();
+    JPanel EditRecord = new JPanel();
+    
     public void toHomePage() {
         HomePage = new JPanel(); HomePage.setSize(1000,750); 
         HPPanel = new JPanel(); Title = new JTextField("UST MEDICAL RECORDS INTERFACE");
@@ -36,6 +45,31 @@ public class TestComputer extends JFrame implements ActionListener {
         HomePage.add(HPPanel);
         HomePage.setLayout(null);
         add(HomePage);
+    }
+    
+    public void toSearchValid() {
+    removeAll();
+    //add(panel2); panel contains all components for search valid
+    }
+    
+    public void toSearchInvalid() {
+    removeAll();
+    //add(panel3); panel contains all components for search invalid
+    }
+    
+    public void toCreateRecord() {
+    removeAll();
+    //add(panel4); panel contains all components for create record
+    }
+    
+    public void toViewRecord() {
+    removeAll();
+    //add(panel5); panel contains all components for view record
+    }
+    
+    public void toEditRecord() {
+    removeAll();
+    //add(panel6); panel contains all components for edit record
     }
 
     public void toSearchValid() {
