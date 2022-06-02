@@ -1,7 +1,7 @@
 public class PatientInfo {
     String pLname, pFname, pMname, pSex, pBday, pAddress;//patient
-    String ecLname, ecFname, ecMname, ecSex, ecBday, ecAddress;//emergency contact
-    int uniqueID;
+    String ecLname, ecFname, ecMname, ecRel, ecCn, ecAddress;//emergency contact
+    String uniqueID;
     
     // setters and getters for patient
     public String getpLname() {
@@ -22,7 +22,7 @@ public class PatientInfo {
     public void setpMname(String pMname) {
         this.pMname = pMname;
     }
-    public String getSex() {
+    public String getpSex() {
         return this.pSex;
     }
     public void setpSex(String pSex) {
@@ -40,10 +40,10 @@ public class PatientInfo {
     public void setpAddress(String pAddress) {
         this.pAddress = pAddress;
     }
-    public int getUniqueID() {
+    public String getUniqueID() {
         return this.uniqueID;
     }
-    public void setUniqueID(int uniqueID) {
+    public void setUniqueID(String uniqueID) {
         this.uniqueID = uniqueID;
     }
 
@@ -66,17 +66,17 @@ public class PatientInfo {
     public void setecMname(String ecMname) {
         this.ecMname = ecMname;
     }
-    public String getecSex() {
-        return this.ecSex;
+    public String getecRel() {
+        return this.ecRel;
     }
-    public void setecSex(String ecSex) {
-        this.ecSex = ecSex;
+    public void setecRel(String ecRel) {
+        this.ecRel = ecRel;
     }
-    public String getecBday() {
-        return this.ecBday;
+    public String getecCn() {
+        return this.ecAddress;
     }
-    public void setecBday(String ecBday) {
-        this.ecBday = ecBday;
+    public void setecCn(String ecCn) {
+        this.ecCn = ecCn;
     }
     public String getecAddress() {
         return this.ecAddress;
@@ -98,8 +98,8 @@ public class PatientInfo {
         System.out.println("Last Name: " + ecLname);
         System.out.println("Given Name: " + ecFname);
         System.out.println("Middle Name: " + ecMname);
-        System.out.println("Sex: " + ecSex);
-        System.out.println("Date of Birth (mm/dd/yyyy): " + ecBday);
+        System.out.println("Sex: " + ecRel);
+        System.out.println("Date of Birth (mm/dd/yyyy): " + ecCn);
         System.out.println("Address: " + ecAddress);
     }
 
