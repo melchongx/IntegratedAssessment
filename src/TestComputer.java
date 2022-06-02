@@ -7,11 +7,14 @@ import java.io.*;
 public class TestComputer extends JFrame implements ActionListener {
     JPanel HomePage, SearchValid, SearchInvalid, CreateRecord, ViewRecord, EditRecord;
     JPanel HPPanel, VSearch, ISearch, CPanelP, CPanelEC, CPanelDR;
-    JTextField Title, EnterPatientID;
+    JTextField EnterPatientID;
     JLabel HomePrompt1, HomePrompt2, ValSearchPrompt, InvalSearchPrompt1,InvalSearchPrompt2;
     JButton Search, Create, View, Edit, InvalReturn;
     GridBagConstraints gbcHome = new GridBagConstraints();
     Color ustYellow = new Color(254,192,15);
+    Border mainBorder = BorderFactory.createLineBorder(Color.BLACK, 10);
+    JTextField Title = new JTextField("UST MEDICAL RECORDS INTERFACE");
+        
 
     static String uHome = System.getProperty("user.home");
     static String fSeparator = System.getProperty("file.separator");
@@ -22,41 +25,54 @@ public class TestComputer extends JFrame implements ActionListener {
     }
 
     public void toHomePage() {
+        Title.setFont(new Font("Arial", Font.BOLD, 20)); Title.setBackground(ustYellow); Title.setEditable(false);
+        gbcHome.gridx = 0; gbcHome.gridy = 0; gbcHome.weightx = 0; gbcHome.gridwidth = 3; HPPanel.add(Title, gbcHome);
+        EnterPatientID.setText("");
+        HomePage.add(HPPanel);
+        HomePage.setLayout(null);
+        add(HomePage);
+        revalidate(); repaint();
         
     }   
     
     public void toSearchValid() {
         remove(HomePage);
-        SearchValid = new JPanel(); SearchValid.setSize(1000,750); add(SearchValid);
-        HPPanel.remove(HomePrompt2); HPPanel.remove(Create); HPPanel.remove(EnterPatientID); HPPanel.remove(Search); HPPanel.remove(HomePrompt1);
+        SearchValid = new JPanel(); SearchValid.setSize(1000,750); 
+        VSearch = new JPanel(); VSearch.setBorder(mainBorder); VSearch.setLayout(new GridBagLayout());
+        Title.setFont(new Font("Arial", Font.BOLD, 20)); Title.setBackground(ustYellow); Title.setEditable(false);
+        gbcHome.gridx = 0; gbcHome.gridy = 0;  gbcHome.gridwidth = 3; VSearch.add(Title,gbcHome);
         ValSearchPrompt = new JLabel("Patient ID Valid");
-        gbcHome.ipady = 20; gbcHome.gridx = 0; gbcHome.gridy = 1; HPPanel.add(ValSearchPrompt, gbcHome);
+        gbcHome.ipady = 20; gbcHome.gridx = 0; gbcHome.gridy = 1; VSearch.add(ValSearchPrompt, gbcHome);
         View = new JButton("          View          "); View.setBackground(ustYellow);
         Edit = new JButton("          Edit          "); Edit.setBackground(ustYellow);
-        gbcHome.gridx = 0; gbcHome.gridy = 2; gbcHome.gridwidth = 1; HPPanel.add(View, gbcHome);
-        gbcHome.gridx = 1; gbcHome.gridy = 2; HPPanel.add(Edit, gbcHome);
+        gbcHome.gridx = 0; gbcHome.gridy = 2; gbcHome.gridwidth = 1; VSearch.add(View, gbcHome);
+        gbcHome.gridx = 1; gbcHome.gridy = 2; VSearch.add(Edit, gbcHome);
         
 
         View.addActionListener(this); Edit.addActionListener(this);
-        SearchValid.add(HPPanel);
+        VSearch.setBounds(300, 200, 400, 300);
+        SearchValid.add(VSearch);
         SearchValid.setLayout(null);
-        
+        add(SearchValid);
         revalidate(); repaint();
     }
     
     public void toSearchInvalid() {
     remove(HomePage);
     SearchInvalid = new JPanel(); SearchInvalid.setSize(1000,750);
-    HPPanel.remove(HomePrompt2); HPPanel.remove(Create); HPPanel.remove(EnterPatientID); HPPanel.remove(Search); HPPanel.remove(HomePrompt1);
+    ISearch = new JPanel(); ISearch.setBorder(mainBorder); ISearch.setLayout(new GridBagLayout());
+    Title.setFont(new Font("Arial", Font.BOLD, 20)); Title.setBackground(ustYellow); Title.setEditable(false);
+    gbcHome.gridx = 0; gbcHome.gridy = 0; ISearch.add(Title, gbcHome);
     InvalSearchPrompt1 = new JLabel("Invalid Patient ID");
-    gbcHome.gridx = 0; gbcHome.gridy = 1; HPPanel.add(InvalSearchPrompt1, gbcHome);
+    gbcHome.gridx = 0; gbcHome.gridy = 1; ISearch.add(InvalSearchPrompt1, gbcHome);
     InvalSearchPrompt2 = new JLabel("Please input a valid patient ID");
-    gbcHome.gridx = 0; gbcHome.gridy = 2; HPPanel.add(InvalSearchPrompt2, gbcHome);
+    gbcHome.gridx = 0; gbcHome.gridy = 2; ISearch.add(InvalSearchPrompt2, gbcHome);
     InvalReturn = new JButton("Return"); InvalReturn.setBackground(ustYellow);
-    gbcHome.gridx = 0; gbcHome.gridy = 3; HPPanel.add(InvalReturn, gbcHome);
+    gbcHome.gridx = 0; gbcHome.gridy = 3; ISearch.add(InvalReturn, gbcHome);
 
     InvalReturn.addActionListener(this);
-    SearchInvalid.add(HPPanel);
+    ISearch.setBounds(300, 200, 400, 300);
+    SearchInvalid.add(ISearch);
     SearchInvalid.setLayout(null);
     add(SearchInvalid);
     revalidate(); repaint();
@@ -83,11 +99,8 @@ public class TestComputer extends JFrame implements ActionListener {
     public TestComputer() {
         setLayout(null);
         HomePage = new JPanel(); HomePage.setSize(1000,750); 
-        HPPanel = new JPanel(); Title = new JTextField("UST MEDICAL RECORDS INTERFACE");
+        HPPanel = new JPanel(); HPPanel.setBorder(mainBorder); HPPanel.setLayout(new GridBagLayout());
         Title.setFont(new Font("Arial", Font.BOLD, 20)); Title.setBackground(ustYellow); Title.setEditable(false);
-        Border mainBorder = BorderFactory.createLineBorder(Color.BLACK, 10);
-        HPPanel.setBorder(mainBorder);
-        HPPanel.setLayout(new GridBagLayout());
         gbcHome.gridx = 0; gbcHome.gridy = 0; gbcHome.weightx = 0; gbcHome.gridwidth = 3; HPPanel.add(Title, gbcHome);
         HomePrompt1 = new JLabel("Enter Patient ID"); HomePrompt1.setBackground(ustYellow);
         gbcHome.ipady = 20; gbcHome.gridx = 0; gbcHome.gridy = 1; gbcHome.weightx = 0.5; HPPanel.add(HomePrompt1, gbcHome);
@@ -154,6 +167,7 @@ public class TestComputer extends JFrame implements ActionListener {
             } else if(e.getSource() == View) {
 
             } else if(e.getSource() == InvalReturn) {
+                remove(SearchInvalid);
                 toHomePage();
             }
             
