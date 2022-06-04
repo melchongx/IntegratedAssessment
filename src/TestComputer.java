@@ -6,13 +6,14 @@ import java.io.*;
 import java.util.UUID;
 
 public class TestComputer extends JFrame implements ActionListener {
-    JPanel HomePage, SearchValid, SearchInvalid, CreateRecord, ViewRecord, EditRecord;
-    JPanel HPPanel, VSearch, ISearch, CPanelP, CPanelEC, CPanelDR;
+    JPanel HomePage, SearchValid, SearchInvalid, CreateRecord, ViewRecord;
+    JPanel HPPanel, VSearch, ISearch, CPanelP, CPanelEC, CPanelDR, VPanelDR;
     JTextField EnterPatientID;
     JLabel HomePrompt1, HomePrompt2, ValSearchPrompt, InvalSearchPrompt1,InvalSearchPrompt2;
     JLabel lblCPLn, lblCPGn, lblCPMn, lblCPS, lblCPBd, lblCPA, lblCECLn, lblCECGn, lblCECMn, lblCECRel, lblCECCn, lblCECA, lblCDRDate, lblCDRDiag, lblCDRTreat;
-    JTextField CPLn, CPGn, CPMn, CPS, CPBd, CPA, CECLn, CECGn, CECMn, CECRel, CECCn, CECA, CDRDate, CDRDiag, CDRTreat;
-    JButton Search, Create, View, Edit, InvalReturn, CreateSubmit;
+    JTextField CPLn, CPGn, CPMn, CPS, CPBd, CPA, CECLn, CECGn, CECMn, CECRel, CECCn, CECA, CDRDate;
+    JTextArea CDRDiag, CDRTreat;
+    JButton Search, Create, View, Edit, InvalReturn, CreateSubmit, CreateReturn;
     GridBagConstraints gbc = new GridBagConstraints();
     Color ustYellow = new Color(254,192,15);
     Border mainBorder = BorderFactory.createLineBorder(Color.BLACK, 10);
@@ -64,28 +65,27 @@ public class TestComputer extends JFrame implements ActionListener {
     }
     
     public void toSearchInvalid() {
-    remove(HomePage);
-    SearchInvalid = new JPanel(); SearchInvalid.setSize(1000,750);
-    ISearch = new JPanel(); ISearch.setBorder(mainBorder); ISearch.setLayout(new GridBagLayout());
-    Title.setFont(new Font("Arial", Font.BOLD, 20)); Title.setBackground(ustYellow); Title.setEditable(false);
-    gbc.gridx = 0; gbc.gridy = 0; ISearch.add(Title, gbc);
-    InvalSearchPrompt1 = new JLabel("Invalid Patient ID");
-    gbc.gridx = 0; gbc.gridy = 1; ISearch.add(InvalSearchPrompt1, gbc);
-    InvalSearchPrompt2 = new JLabel("Please input a valid patient ID");
-    gbc.gridx = 0; gbc.gridy = 2; ISearch.add(InvalSearchPrompt2, gbc);
-    InvalReturn = new JButton("Return"); InvalReturn.setBackground(ustYellow);
-    gbc.gridx = 0; gbc.gridy = 3; ISearch.add(InvalReturn, gbc);
+        remove(HomePage);
+        SearchInvalid = new JPanel(); SearchInvalid.setSize(1000,750);
+        ISearch = new JPanel(); ISearch.setBorder(mainBorder); ISearch.setLayout(new GridBagLayout());
+        Title.setFont(new Font("Arial", Font.BOLD, 20)); Title.setBackground(ustYellow); Title.setEditable(false);
+        gbc.gridx = 0; gbc.gridy = 0; ISearch.add(Title, gbc);
+        InvalSearchPrompt1 = new JLabel("Invalid Patient ID");
+        gbc.gridx = 0; gbc.gridy = 1; ISearch.add(InvalSearchPrompt1, gbc);
+        InvalSearchPrompt2 = new JLabel("Please input a valid patient ID");
+        gbc.gridx = 0; gbc.gridy = 2; ISearch.add(InvalSearchPrompt2, gbc);
+        InvalReturn = new JButton("Return"); InvalReturn.setBackground(ustYellow);
+        gbc.gridx = 0; gbc.gridy = 3; ISearch.add(InvalReturn, gbc);
 
-    InvalReturn.addActionListener(this);
-    ISearch.setBounds(300, 200, 400, 300);
-    SearchInvalid.add(ISearch);
-    SearchInvalid.setLayout(null);
-    add(SearchInvalid);
-    revalidate(); repaint();
+        InvalReturn.addActionListener(this);
+        ISearch.setBounds(300, 200, 400, 300);
+        SearchInvalid.add(ISearch);
+        SearchInvalid.setLayout(null);
+        add(SearchInvalid);
+        revalidate(); repaint();
     }
     
     public void toCreateRecord() {
-        remove(HomePage);
         CreateRecord = new JPanel(); CreateRecord.setSize(1000,750); 
         CPanelP = new JPanel(); CPanelP.setBackground(ustYellow);
         PatientInfo.setFont(new Font("Arial", Font.BOLD, 20)); 
@@ -123,17 +123,29 @@ public class TestComputer extends JFrame implements ActionListener {
         lblCECA = new JLabel("Address"); gbc.gridx = 0; gbc.gridy = 6; CPanelEC.add(lblCECA, gbc);
         CECA = new JTextField("", 20); gbc.gridx = 1; gbc.gridy = 6; CPanelEC.add(CECA, gbc);
 
+
+        JScrollPane scrollDiag = new JScrollPane(CDRDiag);
+        JScrollPane scrollTreat = new JScrollPane(CDRTreat);
         CPanelDR = new JPanel(); CPanelDR.setBackground(ustYellow);
         DiagRep.setFont(new Font("Arial", Font.BOLD, 20));
         DiagRep.setBackground(Color.GRAY); DiagRep.setEditable(false);
         CPanelDR.setLayout(new GridBagLayout());
+        gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 0; gbc.gridy = 0; gbc.gridwidth = 5; gbc.ipady = 15; CPanelDR.add(DiagRep, gbc);
         lblCDRDate = new JLabel("Date (mm/dd/yyyy)"); gbc.gridx = 0; gbc.gridy = 1; gbc.gridwidth = 1; CPanelDR.add(lblCDRDate, gbc);
-        CDRDate = new JTextField("", 50); gbc.gridx = 1; gbc.gridy = 1; CPanelDR.add(CDRDate, gbc);
+        CDRDate = new JTextField("", 75); gbc.gridx = 1; gbc.gridy = 1; CPanelDR.add(CDRDate, gbc);
         lblCDRDiag = new JLabel("Diagnosis"); gbc.gridx = 0; gbc.gridy = 2; gbc.ipady = 60; CPanelDR.add(lblCDRDiag, gbc);
-        CDRDiag = new JTextField("", 50); gbc.gridx = 1; gbc.gridy = 2; CPanelDR.add(CDRDiag, gbc);
+        CDRDiag = new JTextArea("", 150,2); gbc.gridx = 1; gbc.gridy = 2; CPanelDR.add(scrollDiag, gbc);
         lblCDRTreat = new JLabel("Treatment"); gbc.gridx = 0; gbc.gridy = 3; CPanelDR.add(lblCDRTreat, gbc);
-        CDRTreat = new JTextField("", 50); gbc.gridx = 1; gbc.gridy = 3; CPanelDR.add(CDRTreat, gbc);
+        CDRTreat = new JTextArea("", 150,2); gbc.gridx = 1; gbc.gridy = 3; CPanelDR.add(scrollTreat, gbc);
+
+        CDRDiag.setLineWrap(true);
+        scrollDiag.setViewportView(CDRDiag);
+        scrollDiag.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        CDRTreat.setLineWrap(true);
+        scrollTreat.setViewportView(CDRTreat);
+        scrollTreat.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        
 
         CreateSubmit = new JButton("Submit"); CreateSubmit.setBounds(750,620,170,40);
         CreateSubmit.setBackground(Color.GRAY);
@@ -149,14 +161,35 @@ public class TestComputer extends JFrame implements ActionListener {
     }
     
     public void toViewRecord() {
-    removeAll();
-    //add(panel5); panel contains all components for view record
+        remove(SearchValid);
+        toCreateRecord();
+        CreateReturn = new JButton("Submit"); CreateReturn.setBounds(750,620,170,40);
+        CreateReturn.setBackground(Color.GRAY); CreateReturn.transferFocus();
+        CreateReturn.addActionListener(this);
+        CreateRecord.add(CreateReturn);
+        revalidate(); repaint();
     }
     
     public void toEditRecord() {
-    removeAll();
-    //add(panel6); panel contains all components for edit record
+        
+        remove(SearchValid);
+        toCreateRecord();
+        revalidate(); repaint();
+        writeToInfo();
     }
+
+    public void writeToInfo() {
+        try {
+            String holder = PatientValidityCheck();
+            String[] holderSplit = holder.split(",");
+            CPLn.setText(holderSplit[1]); CPGn.setText(holderSplit[2]); CPMn.setText(holderSplit[3]); CPS.setText(holderSplit[4]); CPBd.setText(holderSplit[5]); CPA.setText(holderSplit[6]);
+            CECLn.setText(holderSplit[7]); CECGn.setText(holderSplit[8]); CECMn.setText(holderSplit[9]); CECRel.setText(holderSplit[10]); CECCn.setText(holderSplit[11]); CECA.setText(holderSplit[12]);
+            CDRDate.setText(holderSplit[13]); CDRDiag.setText(holderSplit[14]); CDRTreat.setText(holderSplit[15]);
+        } catch (Exception e) {
+            e.getMessage();
+        }
+    }
+    
 
     
     public TestComputer() {
@@ -186,7 +219,7 @@ public class TestComputer extends JFrame implements ActionListener {
         setResizable(false);
     }
 
-    public void PatientValidityCheck() {
+    public String PatientValidityCheck() {
         System.out.println("in ");
         try {
             System.out.println("in try");
@@ -194,13 +227,14 @@ public class TestComputer extends JFrame implements ActionListener {
             BufferedReader br = new BufferedReader(new FileReader(path));
             String info = br.readLine();
             String[] lineHolder = info.split(",");
+            String patientInformation = "";
             String holder = lineHolder[0];
             while(info != null) {
                 System.out.println("in while");
                 if (input.equals(holder)) {
                     toSearchValid();
                     System.out.println("success");
-                    return;
+                    return patientInformation = info;
                 } else {
                     info = br.readLine();
                     lineHolder = info.split(",");
@@ -214,6 +248,7 @@ public class TestComputer extends JFrame implements ActionListener {
         }
         System.out.println("Invalid");
         toSearchInvalid();
+        return null;
 
     }
 
@@ -241,26 +276,31 @@ public class TestComputer extends JFrame implements ActionListener {
             e.getMessage();
             e.printStackTrace();
         }
-
+        remove(CreateRecord);
+        toHomePage();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         try {
             if(e.getSource() == Create) {
+                remove(HomePage);
                 toCreateRecord();
             } else if(e.getSource() == Search) {
                 System.out.println("Searching");
                 PatientValidityCheck();
             } else if(e.getSource() == Edit) {
-
+                toEditRecord();
             } else if(e.getSource() == View) {
-
+                toViewRecord();
             } else if(e.getSource() == InvalReturn) {
                 remove(SearchInvalid);
                 toHomePage();
             } else if(e.getSource() == CreateSubmit) {
                 CreateSaveRecord();
+            } else if(e.getSource() == CreateReturn) {
+                remove(CreateRecord);
+                toHomePage();
             }
             
         } catch (Exception ex) {
