@@ -1,7 +1,7 @@
 public class PatientInfo {
-    String pLname, pFname, pMname, pSex, pBday, pAddress;//patient
-    String ecLname, ecFname, ecMname, ecRel, ecCn, ecAddress;//emergency contact
-    String uniqueID;
+    private String pLname, pFname, pMname, pSex, pBday, pAddress;//patient
+    private String ecLname, ecFname, ecMname, ecRel, ecCn, ecAddress;//emergency contact
+    private String uniqueID;
     
     // setters and getters for patient
     public String getpLname() {
