@@ -3,6 +3,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
 import java.io.*;
+import java.text.BreakIterator;
 import java.util.UUID;
 
 public class TestComputer extends JFrame implements ActionListener {
@@ -175,7 +176,7 @@ public class TestComputer extends JFrame implements ActionListener {
         VPanelP = new JPanel(); VPanelP.setBackground(ustYellow);
         VPatientInfo.setFont(new Font("Arial", Font.BOLD, 20)); 
         VPatientInfo.setBackground(Color.GRAY); PatientInfo.setEditable(false);
-        VPanelP.setLayout(new GridBagLayout());
+        VPanelP.setLayout(new GridBagLayout()); VPatientInfo.setEditable(false);
         gbc.gridx = 0; gbc.gridy = 0; gbc.gridwidth = 3; gbc.ipady = 15; VPanelP.add(VPatientInfo, gbc);
         lblVPLn = new JLabel("Last Name"); gbc.gridx = 0; gbc.gridy = 1; gbc.gridwidth = 1; VPanelP.add(lblVPLn, gbc);
         VPLn = new JTextField("", 20); gbc.gridx = 1; gbc.gridy = 1; VPanelP.add(VPLn, gbc);
@@ -189,11 +190,13 @@ public class TestComputer extends JFrame implements ActionListener {
         VPBd = new JTextField("", 20); gbc.gridx = 1; gbc.gridy = 5; VPanelP.add(VPBd, gbc);
         lblVPA = new JLabel("Address"); gbc.gridx = 0; gbc.gridy = 6; VPanelP.add(lblVPA, gbc);
         VPA = new JTextField("", 20); gbc.gridx = 1; gbc.gridy = 6; VPanelP.add(VPA, gbc);
+        VPLn.setEditable(false); VPGn.setEditable(false); VPMn.setEditable(false);
+        VPS.setEditable(false); VPBd.setEditable(false); VPA.setEditable(false);
 
         VPanelEC = new JPanel(); VPanelEC.setBackground(ustYellow);
         VEmerCon.setFont(new Font("Arial", Font.BOLD, 20)); 
         VEmerCon.setBackground(Color.GRAY); EmerCon.setEditable(false);
-        VPanelEC.setLayout(new GridBagLayout());
+        VPanelEC.setLayout(new GridBagLayout()); VEmerCon.setEditable(false);
         gbc.gridx = 0; gbc.gridy = 0; gbc.gridwidth = 3; gbc.ipady = 15; VPanelEC.add(VEmerCon, gbc);
         lblVECLn = new JLabel("Last Name"); gbc.gridx = 0; gbc.gridy = 1; gbc.gridwidth = 1; VPanelEC.add(lblVECLn, gbc);
         VECLn = new JTextField("", 20); gbc.gridx = 1; gbc.gridy = 1; VPanelEC.add(VECLn, gbc);
@@ -207,6 +210,8 @@ public class TestComputer extends JFrame implements ActionListener {
         VECCn = new JTextField("", 20); gbc.gridx = 1; gbc.gridy = 5; VPanelEC.add(VECCn, gbc);
         lblVECA = new JLabel("Address"); gbc.gridx = 0; gbc.gridy = 6; VPanelEC.add(lblVECA, gbc);
         VECA = new JTextField("", 20); gbc.gridx = 1; gbc.gridy = 6; VPanelEC.add(VECA, gbc);
+        VECLn.setEditable(false); VECGn.setEditable(false); VECMn.setEditable(false);
+        VECRel.setEditable(false); VECCn.setEditable(false); VECA.setEditable(false);
 
         VPanelDR = new JPanel(); VPanelDR.setBackground(ustYellow);
         VDiagRep.setFont(new Font("Arial", Font.BOLD, 20)); VDiagRep.setBackground(Color.GRAY); VDiagRep.setEditable(false);
@@ -223,6 +228,7 @@ public class TestComputer extends JFrame implements ActionListener {
         VDRTreat.setLineWrap(true);
         VscrollTreat.setViewportView(VDRTreat);
         VscrollTreat.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        VDRDiag.setEditable(false); VDRTreat.setEditable(false);
         
         VPanelP.setBounds(20, 60, 460, 280);
         VPanelEC.setBounds(500, 60, 460, 280);
@@ -251,9 +257,7 @@ public class TestComputer extends JFrame implements ActionListener {
                 System.out.println("in while");
                 if (input.equals(holder)) {
                     System.out.println("success");
-                    remove(HomePage); add(SearchValid);
-                    revalidate(); repaint();
-                    return patientInformation = info;
+                    return info;
                 } else {
                     info = br.readLine();
                     lineHolder = info.split(",");
@@ -286,7 +290,7 @@ public class TestComputer extends JFrame implements ActionListener {
         String data = pi.getUniqueID()+","+pi.getpLname()+","+pi.getpFname()+","+pi.getpMname()+","+
         pi.getpSex()+","+pi.getpBday()+","+pi.getpAddress()+","+
         pi.getecLname()+","+pi.getecFname()+","+pi.getecMname()+","+pi.getecRel()+","+pi.getecCn()+","+
-        pi.getecAddress()+","+CDRDate.getText()+"\n"+CDRDiag.getText()+","+CDRTreat.getText();
+        pi.getecAddress()+","+CDRDiag.getText()+": "+CDRDate.getText()+"// ,"+CDRTreat.getText()+": "+CDRDate.getText()+"// ";
 
         try {
             PrintWriter pw = new PrintWriter(new FileWriter(path,true));
@@ -307,28 +311,59 @@ public class TestComputer extends JFrame implements ActionListener {
             if(e.getSource() == Create) {
                 remove(HomePage);
                 add(CreateRecord);
+                CPLn.setText(""); CPGn.setText(""); CPMn.setText(""); CPS.setText(""); CPBd.setText(""); CPA.setText("");
+                CECLn.setText(""); CECGn.setText(""); CECMn.setText(""); CECRel.setText(""); CECCn.setText(""); CECA.setText("");
+                CDRDate.setText(""); CDRDiag.setText(""); CDRTreat.setText("");
                 revalidate(); repaint();
             } else if(e.getSource() == Search) {
                 System.out.println("Searching");
-                PatientValidityCheck();
+                String holder = PatientValidityCheck();
+                String holderS[] = holder.split(",");
+                if(EnterPatientID.getText().equals(holderS[0])) {
+                    remove(HomePage);
+                    add(SearchValid);
+                    revalidate(); repaint();
+                }
             } else if(e.getSource() == Edit) {
                 remove(SearchValid);
                 add(CreateRecord);
+                String holder = PatientValidityCheck();
+                String holderS[] = holder.split(",");
+                CPLn.setText(holderS[1]); CPGn.setText(holderS[2]); CPMn.setText(holderS[3]); CPS.setText(holderS[4]); CPBd.setText(holderS[5]); CPA.setText(holderS[6]);
+                CECLn.setText(holderS[7]); CECGn.setText(holderS[8]); CECMn.setText(holderS[9]); CECRel.setText(holderS[10]); CECCn.setText(holderS[11]); CECA.setText(holderS[12]);
+                CDRDate.setText(""); CDRDiag.setText(holderS[13]); CDRTreat.setText(holderS[14]);
+
                 revalidate(); repaint();
             } else if(e.getSource() == View) {
                 remove(SearchValid);
                 add(ViewRecord);
+                String holder = PatientValidityCheck();
+                String holderS[] = holder.split(",");
+                VPLn.setText(holderS[1]); VPGn.setText(holderS[2]); VPMn.setText(holderS[3]); VPS.setText(holderS[4]); VPBd.setText(holderS[5]); VPA.setText(holderS[6]);
+                VECLn.setText(holderS[7]); VECGn.setText(holderS[8]); VECMn.setText(holderS[9]); VECRel.setText(holderS[10]); VECCn.setText(holderS[11]); VECA.setText(holderS[12]);
+                VDRDiag.setText(holderS[13]); VDRTreat.setText(holderS[14]);
+                ViewRecord.revalidate(); ViewRecord.repaint();
                 revalidate(); repaint();
-                VPLn.setText("JAbolito");
-                
             } else if(e.getSource() == InvalReturn) {
                 remove(SearchInvalid);
                 add(HomePage);
                 revalidate(); repaint();                
             } else if(e.getSource() == CreateSubmit) {
-                CreateSaveRecord();
+                if(CPLn.getText().equals("")||CPGn.getText().equals("")||CPMn.getText().equals("")|| CPS.getText().equals("")||CPBd.getText().equals("")||CPA.getText().equals("")||CECLn.getText().equals("")||CECGn.getText().equals("")||CECMn.getText().equals("")||CECRel.getText().equals("")||CECCn.getText().equals("")||CECA.getText().equals("")||CDRDate.getText().equals("")||CDRDiag.getText().equals("")||CDRTreat.getText().equals("")) {
+                    JOptionPane.showMessageDialog(null, "Please fill out all required information");
+                    
+                } else {
+                    if(CPS.getText().equals("M")||CPS.getText().equals("m")||CPS.getText().equals("F")||CPS.getText().equals("f")) {
+                        CreateSaveRecord();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Only acceptable options for Patient Sex: M/F");
+                    }
+                }
             } else if(e.getSource() == CreateReturn) {
                 remove(ViewRecord);
+                VPLn.setText(""); VPGn.setText(""); VPMn.setText(""); VPS.setText(""); VPBd.setText(""); VPA.setText("");
+                VECLn.setText(""); VECGn.setText(""); VECMn.setText(""); VECRel.setText(""); VECCn.setText(""); VECA.setText("");
+                VDRDiag.setText(""); VDRTreat.setText("");
                 add(HomePage);
                 revalidate(); repaint();
             }
@@ -337,16 +372,11 @@ public class TestComputer extends JFrame implements ActionListener {
             System.out.print(ex.getMessage());
         }
     }
-    public void switchy() {
-        CreateRecord.remove(CreateSubmit);
-        CreateRecord.add(CreateReturn);
-        revalidate(); repaint();
-    }
     public static void main(String[] args) {
         myFile();
         try {
             PrintWriter pw = new PrintWriter(new FileWriter(path,true));
-            pw.println(12345);
+            pw.println("123456,Dela Cruz,Juan,Santos,M,01/01/2001,123 J Bernardo St Manila,Dela Cruz,Jose,Santos,Brother,09091234567,123 J Bernardo St Manila,Fever: 5/31/2022,Biogesic: 5/31/2022");
             pw.close();
         } catch (IOException eww) {
             eww.getMessage();
@@ -355,4 +385,3 @@ public class TestComputer extends JFrame implements ActionListener {
         tc.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 }
-// FIX ACTIONLISTENER ON VIEW AND EDIT
