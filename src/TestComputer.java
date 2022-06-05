@@ -7,39 +7,39 @@ import java.text.BreakIterator;
 import java.util.UUID;
 
 public class TestComputer extends JFrame implements ActionListener {
-    JPanel HomePage, SearchValid, SearchInvalid, CreateRecord, ViewRecord;
-    JPanel HPPanel, VSearch, ISearch, CPanelP, CPanelEC, CPanelDR, VPanelP, VPanelEC, VPanelDR;
+    JPanel HomePage, SearchValid, SearchInvalid, CreateRecord, ViewRecord; //main panels
+    JPanel HPPanel, VSearch, ISearch, CPanelP, CPanelEC, CPanelDR, VPanelP, VPanelEC, VPanelDR; //subpanels for main panels
     JTextField EnterPatientID;
     JLabel HomePrompt1, HomePrompt2, ValSearchPrompt, InvalSearchPrompt1,InvalSearchPrompt2;
-    JLabel lblCPLn, lblCPGn, lblCPMn, lblCPS, lblCPBd, lblCPA, lblCECLn, lblCECGn, lblCECMn, lblCECRel, lblCECCn, lblCECA, lblCDRDate, lblCDRDiag, lblCDRTreat;
-    JLabel lblVPLn, lblVPGn, lblVPMn, lblVPS, lblVPBd, lblVPA, lblVECLn, lblVECGn, lblVECMn, lblVECRel, lblVECCn, lblVECA, lblVDRDate, lblVDRDiag, lblVDRTreat;
-    JTextField CPLn, CPGn, CPMn, CPS, CPBd, CPA, CECLn, CECGn, CECMn, CECRel, CECCn, CECA, CDRDate;
-    JTextField VPLn, VPGn, VPMn, VPS, VPBd, VPA, VECLn, VECGn, VECMn, VECRel, VECCn, VECA, VDRDate;
-    JTextArea CDRDiag, CDRTreat, VDRDiag, VDRTreat;
+    JLabel lblCPLn, lblCPGn, lblCPMn, lblCPS, lblCPBd, lblCPA, lblCECLn, lblCECGn, lblCECMn, lblCECRel, lblCECCn, lblCECA, lblCDRDate, lblCDRDiag, lblCDRTreat; //labels for create/edit record
+    JLabel lblVPLn, lblVPGn, lblVPMn, lblVPS, lblVPBd, lblVPA, lblVECLn, lblVECGn, lblVECMn, lblVECRel, lblVECCn, lblVECA, lblVDRDate, lblVDRDiag, lblVDRTreat; //labels for view record
+    JTextField CPLn, CPGn, CPMn, CPS, CPBd, CPA, CECLn, CECGn, CECMn, CECRel, CECCn, CECA, CDRDate; //textfields for create/edit record
+    JTextField VPLn, VPGn, VPMn, VPS, VPBd, VPA, VECLn, VECGn, VECMn, VECRel, VECCn, VECA, VDRDate; //textfields for view record
+    JTextArea CDRDiag, CDRTreat, VDRDiag, VDRTreat; // textareas for view record
     JButton Search, Create, View, Edit, InvalReturn, CreateSubmit, CreateReturn;
-    GridBagConstraints gbc = new GridBagConstraints();
-    Color ustYellow = new Color(254,192,15);
+    GridBagConstraints gbc = new GridBagConstraints(); //constraints for layout manager(gridbag layout)
+    Color ustYellow = new Color(254,192,15); //custom color
     Border mainBorder = BorderFactory.createLineBorder(Color.BLACK, 10);
-    JTextField HTitle = new JTextField("UST MEDICAL RECORDS INTERFACE");
-    JTextField SVTitle = new JTextField("UST MEDICAL RECORDS INTERFACE");
-    JTextField SITitle = new JTextField("UST MEDICAL RECORDS INTERFACE");
-    JTextField PatientInfo = new JTextField("PATIENT INFORMATION");
-    JTextField VPatientInfo = new JTextField("PATIENT INFORMATION");
-    JTextField EmerCon = new JTextField("EMERGENCY CONTACT");
-    JTextField VEmerCon = new JTextField("EMERGENCY CONTACT");
-    JTextField DiagRep = new JTextField("DIAGNOSIS REPORT");
-    JTextField VDiagRep = new JTextField("DIAGNOSIS REPORT");
+    JTextField HTitle = new JTextField("UST MEDICAL RECORDS INTERFACE"); //title for homepage
+    JTextField SVTitle = new JTextField("UST MEDICAL RECORDS INTERFACE"); //title for validsearch
+    JTextField SITitle = new JTextField("UST MEDICAL RECORDS INTERFACE"); //title for invalidsearch
+    JTextField PatientInfo = new JTextField("PATIENT INFORMATION"); //create/edit record patient title
+    JTextField VPatientInfo = new JTextField("PATIENT INFORMATION"); //view record patient title
+    JTextField EmerCon = new JTextField("EMERGENCY CONTACT"); //create/edit record title
+    JTextField VEmerCon = new JTextField("EMERGENCY CONTACT"); //view record title
+    JTextField DiagRep = new JTextField("DIAGNOSIS REPORT"); //create/edit record
+    JTextField VDiagRep = new JTextField("DIAGNOSIS REPORT"); //view record
         
     static String uHome = System.getProperty("user.home");
     static String fSeparator = System.getProperty("file.separator");
     static String path = uHome + fSeparator + "ustMedRec.csv";
 
-    public static void myFile() {
+    public static void myFile() { //static to be accessible throught the class
         File myFile = new File(path);
         System.out.print(path);
     }
     
-    public TestComputer() { //////// TEST COMPUTER ???????????????????????????? ASSAFSDFFDGFGDNHRHTYJYUMTNYNYNYMY
+    public TestComputer() { 
         setLayout(null);
         HomePage = new JPanel(); HomePage.setSize(1000,750); 
         HPPanel = new JPanel(); HPPanel.setBorder(mainBorder); HPPanel.setLayout(new GridBagLayout());
